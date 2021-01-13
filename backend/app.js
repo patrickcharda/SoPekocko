@@ -4,11 +4,13 @@ const mongoose = require('mongoose');
 const path = require('path');
 const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
-
+const myModule = require('./key');
+const dbKey = myModule.dbKey;
+console.log(dbKey.password);
 
 const app = express();
 
-mongoose.connect('mongodb+srv://charpa:AmongUs@cluster0.62t3n.mongodb.net/sopeko?retryWrites=true&w=majority',  
+mongoose.connect(`mongodb+srv://${dbKey.login}:${dbKey.password}@cluster0.62t3n.mongodb.net/sopeko?retryWrites=true&w=majority`,  
     { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
