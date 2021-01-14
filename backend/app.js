@@ -4,8 +4,8 @@ const mongoose = require('mongoose');
 const path = require('path');
 const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
-const myModule = require('./key');
-const dbKey = myModule.dbKey;
+const dbAdmin = require('./key');
+const dbKey = dbAdmin.dbKey;
 console.log(dbKey.password);
 
 const app = express();
