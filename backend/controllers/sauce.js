@@ -91,36 +91,49 @@ exports.likeSauce = (req, res, next) => {
   console.log(req.body.like);
   Sauce.findOne({ _id: req.params.id })
     .then(sauce => {
+
       if (req.body.like === 1) {
-        sauce.likes += req.body.like;
-        sauce.usersLiked.push(req.body.userId);
-      }
-      if (req.body.like === 0) {
-        /* si l'utilisateur a liké on retire 1, si l'utilisateur a déjà disliké on ajoute 1
-           
-        */
-      }
-      if (req.body.like === -1) {
-        sauce.dislikes += req.body.like;
-        sauce.usersDisliked.push(req.body.userId);
+        let hasLiked = sauce.usersLiked.includes(req.body.userId);
+        if (!hasLiked) {
+          sauce.likes += 1;
+          sauce.usersLiked.push(req.body.userId);
+        }
       }
 
-      console.log('likes : ' +sauce.likes);
-      console.log('userId :'+req.body.userId);
-      console.log(sauce);
+      if (req.body.like === 0) {
+
+       let hasLiked = sauce.usersLiked.includes(req.body.userId);
+       if (hasLiked) {
+         let indexUserToRemove = sauce.usersLiked.findIndex(userId => userId==req.body.userId);
+         sauce.usersLiked.splice(indexUserToRemove, 1);
+         sauce.likes -= 1;
+       }
+
+       let hasDisliked = sauce.usersDisliked.includes(req.body.userId);
+       if (hasDisliked) {
+        let indexUserToRemove = sauce.usersDisliked.findIndex(userId => userId==req.body.userId);
+        sauce.usersDisliked.splice(indexUserToRemove, 1);
+        sauce.dislikes -= 1;
+        }
+
+      }
+
+      if (req.body.like === -1) {
+        let hasDisliked = sauce.usersDisliked.includes(req.body.userId);
+        if (!hasDisliked) {
+          sauce.dislikes += 1;
+          sauce.usersDisliked.push(req.body.userId);
+        }
+      }
+
       Sauce.updateOne({ _id: req.params.id }, { 
         likes: sauce.likes,
+        dislikes: sauce.dislikes,
         usersLiked: sauce.usersLiked,
         usersDisliked: sauce.usersDisliked,
         _id: req.params.id })
         .then(() => res.status(200).json({ message: 'Objet modifié !'}))
         .catch(error => res.status(400).json({ error }));
-      //const filename = sauce.imageUrl.split('/images/')[1];
-      /*fs.unlink(`images/${filename}`, () => {
-        Sauce.deleteOne({ _id: req.params.id })
-          .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
-          .catch(error => res.status(400).json({ error }));
-      });*/
     })
     .catch(error => res.status(500).json({ error }));
 };
