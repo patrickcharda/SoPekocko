@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const cryptojs = require('crypto-js');
 
 const User = require('../models/User');
 const  passwordValidator = require('password-validator');
@@ -15,16 +16,16 @@ schema
 
 
 exports.signup = (req, res, next) => {
-  let mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,7}$/i;
+  const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,7}$/i;
   if (!mailRegex.test(req.body.email)) {
     return res.status(400).json({message: 'adresse email invalide'});
   }
   if (schema.validate(req.body.password)) {
-    let bodyEmail = req.body.email;
+    const cipherEmail = cryptojs.HmacSHA512(req.body.email, 'soPeKo_randomKey_77').toString();
     bcrypt.hash(req.body.password, 10)
     .then(hash => {
       const user = new User({
-      email: bodyEmail,
+      email: cipherEmail,
       password: hash
       });
       user.save()
@@ -38,7 +39,8 @@ exports.signup = (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
-  User.findOne({ email: req.body.email })
+  const cipherEmail = cryptojs.HmacSHA512(req.body.email, 'soPeKo_randomKey_77').toString();
+  User.findOne({ email: cipherEmail })
   .then(user => {
     if (!user) {
       return res.status(401).json({ error: 'Utilisateur non trouvé !' });
