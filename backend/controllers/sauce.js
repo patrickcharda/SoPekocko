@@ -1,8 +1,13 @@
 const Sauce = require('../models/Sauce');
 const fs = require('fs');
+//var escapeHtml = require('escape-html');
 
 exports.createSauce = (req, res, next) => {
   const sauceObject = JSON.parse(req.body.sauce);
+  /*sauceObject.name = escapeHtml(sauceObject.name);
+  sauceObject.description = escapeHtml(sauceObject.description);
+  sauceObject.manufacturer = escapeHtml(sauceObject.manufacturer);
+  sauceObject.mainPepper = escapeHtml(sauceObject.mainPepper);*/
     if (sauceObject._id) {
       delete sauceObject._id;
     }
@@ -24,6 +29,10 @@ exports.getOneSauce = (req, res, next) => {
     _id: req.params.id
   }).then(
     (sauce) => {
+      /*sauce.name = escapeHtml(sauce.name);
+      sauce.description = escapeHtml(sauce.description);
+      sauce.manufacturer = escapeHtml(sauce.manufacturer);
+      sauce.mainPepper = escapeHtml(sauce.mainPepper);*/
       res.status(200).json(sauce);
     }
   ).catch(
@@ -41,7 +50,11 @@ exports.modifySauce = (req, res, next) => {
       ...JSON.parse(req.body.sauce),
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body };
-    console.log(sauceObject);
+  /*sauceObject.name = escapeHtml(sauceObject.name);
+  sauceObject.description = escapeHtml(sauceObject.description);
+  sauceObject.manufacturer = escapeHtml(sauceObject.manufacturer);
+  sauceObject.mainPepper = escapeHtml(sauceObject.mainPepper);*/
+
   // si on cherche à modifier l'image il faut supprimer l'ancienne
   if (req.file) {
     Sauce.findOne({ _id: req.params.id })
@@ -49,14 +62,14 @@ exports.modifySauce = (req, res, next) => {
       const filename = sauce.imageUrl.split('/images/')[1];
       fs.unlink(`images/${filename}`, () => {
         Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
-          .then(() => res.status(200).json({ message: 'Objet modifié !'}))
+          .then(() => res.status(201).json({ message: 'Objet modifié !'}))
           .catch(error => res.status(400).json({ error }));
       });
     })
     .catch(error => res.status(500).json({ error }));
   }
   Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
-    .then(() => res.status(200).json({ message: 'Objet modifié !'}))
+    .then(() => res.status(201).json({ message: 'Objet modifié !'}))
     .catch(error => res.status(400).json({ error }));
 };
 
@@ -76,6 +89,7 @@ exports.deleteSauce = (req, res, next) => {
 exports.getAllSauce = (req, res, next) => {
   Sauce.find().then(
     (sauces) => {
+      //console.log(sauces);
       res.status(200).json(sauces);
     }
   ).catch(
