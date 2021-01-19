@@ -6,6 +6,8 @@ const MIME_TYPES = {
   'image/png': 'png'
 };
 
+var maxSize = 1024 * 1024;
+
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, 'images');
@@ -17,4 +19,4 @@ const storage = multer.diskStorage({
   }
 });
 
-module.exports = multer({storage: storage}).single('image');
+module.exports = multer({storage: storage, limits:{ fileSize: maxSize }}).single('image');
