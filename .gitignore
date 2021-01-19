@@ -2,6 +2,7 @@ frontend/node_modules
 backend/node_modules
 backend/key.js
 workspace.code-workspace
+node_modules
 
 
 
