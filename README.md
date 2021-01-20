@@ -4,7 +4,7 @@ Projet de développement du back-end d'un mini-site dans le cadre de la formatio
 
 Le front-end fourni par OpenClassrooms se trouve ici : https://github.com/OpenClassrooms-Student-Center/dwj-projet6
 
-## Installation dans le dossier projet
+## Installation dans un dossier projet
 
 - Cloner le dépôt du frontend (développé avec Angular) dans un dossier frontend.
 - Cloner le dépôt du backend dans un dossier backend.
