@@ -1,6 +1,6 @@
 ## SoPekocko
 
-Projet de développement du back-end d'un mini-site d'avis sur les sauces dans le cadre de la formation de développeur web dispensée par OpenClassrooms.
+Projet de développement du back-end d'un mini-site dans le cadre de la formation de développeur web dispensée par OpenClassrooms.
 
 Le front-end fourni par OpenClassrooms se trouve ici : https://github.com/OpenClassrooms-Student-Center/dwj-projet6
 
