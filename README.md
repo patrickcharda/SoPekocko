@@ -32,9 +32,9 @@ Le front-end fourni par OpenClassrooms se trouve ici : https://github.com/OpenCl
   
 - Dans le fichier app.js, repérer la ligne suivante :
 
-mongoose.connect(`mongodb+srv://${dbKey.login}:${dbKey.password}@cluster0.62t3n.mongodb.net/sopeko?retryWrites=true&w=majority`,  
+  mongoose.connect(`mongodb+srv://${dbKey.login}:${dbKey.password}@cluster0.62t3n.mongodb.net/sopeko?retryWrites=true&w=majority`,  
 
-Y remplacer cluster0.62t3n.mongodb.net/sopeko? par votreCluster.mongodb.net/votreBaseDeDonnees?
+  Y remplacer cluster0.62t3n.mongodb.net/sopeko? par votreCluster.mongodb.net/votreBaseDeDonnees?
   
 ## Démarrer en local
 
