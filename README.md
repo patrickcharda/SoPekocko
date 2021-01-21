@@ -1,6 +1,6 @@
 ## SoPekocko
 
-Projet de développement du back-end d'un mini-site dans le cadre de la formation de développeur web dispensée par OpenClassrooms.
+Projet de développement du back-end - exclusivement le back-end - d'un mini-site dans le cadre de la formation de développeur web dispensée par OpenClassrooms.
 
 Le front-end fourni par OpenClassrooms se trouve ici : https://github.com/OpenClassrooms-Student-Center/dwj-projet6
 
@@ -42,6 +42,8 @@ Le front-end fourni par OpenClassrooms se trouve ici : https://github.com/OpenCl
 - avec le terminal, node server depuis le dossier backend
 
 Le site est accessible à http://localhost:4200/
+
+NB : Le schéma mis en place pour le mot de passe impose 8 caractères alpha-numériques, dont au moins 2 chiffres, 1 miniscule et 1 majuscule. 
 
 
 
