@@ -17,7 +17,7 @@ schema
 
 exports.signup = (req, res, next) => {
   const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,7}$/i;
-  if (!mailRegex.test(req.body.email)) {
+  if (!mailRegex.test(req.body.email) && req.body.length < 50) {
     return res.status(400).json({message: 'adresse email invalide'});
   }
   if (schema.validate(req.body.password)) {
@@ -39,6 +39,10 @@ exports.signup = (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
+  const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,7}$/i;
+  if (!mailRegex.test(req.body.email) && req.body.length < 50) {
+    return res.status(400).json({message: 'adresse email invalide'});
+  }
   const cipherEmail = cryptojs.HmacSHA512(req.body.email, 'soPeKo_randomKey_77').toString();
   User.findOne({ email: cipherEmail })
   .then(user => {
