@@ -1,13 +1,19 @@
 const Sauce = require('../models/Sauce');
 const fs = require('fs');
-//var escapeHtml = require('escape-html');
+const { timeStamp } = require('console');
 
 exports.createSauce = (req, res, next) => {
+  let scriptRegex = /<|>/;
+  if (scriptRegex.test(req.body.sauce)) {
+    console.log(req.body.sauce);
+    return res.status(401).json({message: `signes < et > interdits`});
+  };
   const sauceObject = JSON.parse(req.body.sauce);
-  /*sauceObject.name = escapeHtml(sauceObject.name);
-  sauceObject.description = escapeHtml(sauceObject.description);
-  sauceObject.manufacturer = escapeHtml(sauceObject.manufacturer);
-  sauceObject.mainPepper = escapeHtml(sauceObject.mainPepper);*/
+  if (sauceObject.name.length > 50 || sauceObject.manufacturer.length > 30 || 
+    sauceObject.description.length > 1000 || sauceObject.mainPepper.length > 100 ) {
+      return res.status(401).json({message: `name 50 caracteres max, manufacturer 30, description 1000, et mainpepper 100`});
+    }
+
     if (sauceObject._id) {
       delete sauceObject._id;
     }
@@ -29,10 +35,6 @@ exports.getOneSauce = (req, res, next) => {
     _id: req.params.id
   }).then(
     (sauce) => {
-      /*sauce.name = escapeHtml(sauce.name);
-      sauce.description = escapeHtml(sauce.description);
-      sauce.manufacturer = escapeHtml(sauce.manufacturer);
-      sauce.mainPepper = escapeHtml(sauce.mainPepper);*/
       res.status(200).json(sauce);
     }
   ).catch(
@@ -45,15 +47,20 @@ exports.getOneSauce = (req, res, next) => {
 };
 
 exports.modifySauce = (req, res, next) => {
+  let scriptRegex = /<|>/;
+  if (scriptRegex.test(req.body.sauce)) {
+    console.log(req.body.sauce);
+    return res.status(401).json({message: `signes < et > interdits`});
+  };
   const sauceObject = req.file ?
     {
       ...JSON.parse(req.body.sauce),
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body };
-  /*sauceObject.name = escapeHtml(sauceObject.name);
-  sauceObject.description = escapeHtml(sauceObject.description);
-  sauceObject.manufacturer = escapeHtml(sauceObject.manufacturer);
-  sauceObject.mainPepper = escapeHtml(sauceObject.mainPepper);*/
+  if (sauceObject.name.length > 50 || sauceObject.manufacturer.length > 30 || 
+    sauceObject.description.length > 1000 || sauceObject.mainPepper.length > 100 ) {
+      return res.status(401).json({message: `attention : name 50 caracteres max, manufacturer 30, description 1000, et mainpepper 100`});
+  }
 
   // si on cherche à modifier l'image il faut supprimer l'ancienne
   if (req.file) {
@@ -89,7 +96,6 @@ exports.deleteSauce = (req, res, next) => {
 exports.getAllSauce = (req, res, next) => {
   Sauce.find().then(
     (sauces) => {
-      //console.log(sauces);
       res.status(200).json(sauces);
     }
   ).catch(

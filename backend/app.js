@@ -26,8 +26,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(bodyParser.json());
-
+app.use(bodyParser.json({limit: '2Mb'}));
 
 /*to avoid sql injection by replacing prohibited characters ($ et .) with _ 
 (callback passed as the first argument to app.use(), it matches all routes ) */
