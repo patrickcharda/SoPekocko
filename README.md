@@ -43,7 +43,7 @@ Le front-end fourni par OpenClassrooms se trouve ici : https://github.com/OpenCl
 
 Le site est accessible à http://localhost:4200/
 
-NB : Le schéma mis en place pour le mot de passe impose 8 caractères alpha-numériques, dont au moins 2 chiffres, 1 miniscule et 1 majuscule. 
+NB : Le schéma mis en place pour le mot de passe impose 8 caractères alpha-numériques, dont au moins 2 chiffres, 1 minuscule et 1 majuscule. 
 
 
 
