@@ -7,11 +7,12 @@ const userRoutes = require('./routes/user');
 const dbAdmin = require('./key');
 const dbKey = dbAdmin.dbKey;
 const mongoSanitize = require('express-mongo-sanitize');
+require('dotenv').config();
 
 
 const app = express();
 
-mongoose.connect(`mongodb+srv://${dbKey.login}:${dbKey.password}@cluster0.62t3n.mongodb.net/sopeko?retryWrites=true&w=majority`,  
+mongoose.connect(`mongodb+srv://${dbKey.login}:${dbKey.password}@${process.env.DB_CLUSTER}/${process.env.DB_NAME}?retryWrites=true&w=majority`,  
     { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
