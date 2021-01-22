@@ -20,15 +20,21 @@ Le front-end fourni par OpenClassrooms se trouve ici : https://github.com/OpenCl
   - mongoose-unique-validator
   - multer
   - password-validator
+  - dotenv
   
-- A la racine du dossier backend, créer un fichier key.js avec le contenu suivant :
+- Dupliquer le fichier .env.example et renommer la copie en .env
 
-  const dbKey = { 
-    login: 'your-mongo-database-admin-login',
-    password: 'your-password'
-  };
-  
-  exports.dbKey = dbKey;
+  -> modifier les valeurs des variables contenues dans .env :
+
+    #### DB
+
+    DB_LOGIN = 'your_mongo_database_login'
+    DB_PASSWORD = 'your_password'
+
+    #### KEY
+
+    KEY_TOKEN = 'your_secret_key_1'
+    KEY_CRYPTOJS = 'your_secret_key2'
   
 - Dans le fichier app.js, repérer la ligne suivante :
 
