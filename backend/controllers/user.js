@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cryptojs = require('crypto-js');
+require('dotenv').config();
 
 const User = require('../models/User');
 const  passwordValidator = require('password-validator');
@@ -21,7 +22,7 @@ exports.signup = (req, res, next) => {
     return res.status(400).json({message: 'adresse email invalide'});
   }
   if (schema.validate(req.body.password)) {
-    const cipherEmail = cryptojs.HmacSHA512(req.body.email, 'soPeKo_randomKey_77').toString();
+    const cipherEmail = cryptojs.HmacSHA512(req.body.email, process.env.KEY_CRYPTOJS).toString();
     bcrypt.hash(req.body.password, 10)
     .then(hash => {
       const user = new User({
@@ -43,7 +44,7 @@ exports.login = (req, res, next) => {
   if (!mailRegex.test(req.body.email) && req.body.length < 50) {
     return res.status(400).json({message: 'adresse email invalide'});
   }
-  const cipherEmail = cryptojs.HmacSHA512(req.body.email, 'soPeKo_randomKey_77').toString();
+  const cipherEmail = cryptojs.HmacSHA512(req.body.email, process.env.KEY_CRYPTOJS).toString();
   User.findOne({ email: cipherEmail })
   .then(user => {
     if (!user) {
