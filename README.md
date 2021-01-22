@@ -31,6 +31,10 @@ Le front-end fourni par OpenClassrooms se trouve ici : https://github.com/OpenCl
     DB_LOGIN = 'your_mongo_database_login'
     
     DB_PASSWORD = 'your_password'
+    
+    DB_CLUSTER = 'your_mongo_cluster'
+    
+    DB_NAME = 'your_mongo_db_name'
 
     #### KEY
 
