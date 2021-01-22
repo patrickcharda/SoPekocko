@@ -29,11 +29,13 @@ Le front-end fourni par OpenClassrooms se trouve ici : https://github.com/OpenCl
     #### DB
 
     DB_LOGIN = 'your_mongo_database_login'
+    
     DB_PASSWORD = 'your_password'
 
     #### KEY
 
     KEY_TOKEN = 'your_secret_key_1'
+    
     KEY_CRYPTOJS = 'your_secret_key2'
   
 - Dans le fichier app.js, repérer la ligne suivante :
